@@ -72,3 +72,12 @@ Route::post('/login','AuthController@login');
 
 //LOGOUT
 Route::get('/logout','AuthController@logout');
+
+
+//HOME INDEX
+Route::get('/home','HomeController@index');
+
+//CART
+Route::get('/create-cart/{id}/{qty}','CartController@store');
+Route::get('/manage-cart','CartController@index');
+Route::get('/delete-cart/{id}','CartController@destroy');

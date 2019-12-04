@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Figure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -14,7 +16,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $carts = Cart::all();
+        return view('cart.manage',compact('carts'));
     }
 
     /**
@@ -33,9 +36,22 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id,$qty)
     {
-        //
+        $cart= Cart::where('figure_id',$id)->first();
+        if($cart){
+            if($cart->quantity<$qty){
+                $cart->quantity+=1;
+            }
+        }else{
+            $cart = new Cart();
+            $cart->figure_id = $id;
+            $cart->quantity = 1;
+            $cart->user_id = Auth::id();
+        }
+        $cart->save();
+        return redirect('/home');
+
     }
 
     /**
@@ -78,8 +94,11 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy($id)
     {
-        //
+        $cart = Cart::findOrFail($id);
+        $cart->delete();
+
+        return redirect('/manage-cart');
     }
 }

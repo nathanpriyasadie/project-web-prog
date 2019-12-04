@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Figure;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $searchResult = request()->search;
+        $figures = Figure::where('name','LIKE', "%$searchResult%")->paginate(6);
+        return view('home.manage',compact('figures'));
     }
 }
