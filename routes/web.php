@@ -16,27 +16,36 @@ Route::get('/', function () {
 });
 
 
-
 //CREATE USER
 Route::get('/create-user','UserController@create');
 Route::post('/create-user','UserController@store');
-//VIEW USER
-Route::get('/manage-user','UserController@index');
-//UPDATE USER
-Route::get('/update-user/{id}','UserController@edit');
-Route::post('/update-user/{id}','UserController@update');
-//DELETE USER
-Route::get('/delete-user/{id}','UserController@destroy');
 
-//CREATE FEEDBACK ON DEVELOPMENT
+Route::group(['middleware'=>'login'], function() {
+    //VIEW USER
+    Route::get('/manage-user','UserController@index');
+    //UPDATE USER
+    Route::get('/update-user/{id}','UserController@edit');
+    Route::post('/update-user/{id}','UserController@update');
+    //DELETE USER
+    Route::get('/delete-user/{id}','UserController@destroy');
+});
+
+//CREATE FEEDBACK
 Route::get('/create-feedback','FeedbackController@create');
 Route::post('/create-feedback','FeedbackController@store');
+//VIEW FEEDBACK
+Route::get('/manage-feedback','FeedbackController@index');
+//UPDATE FEEDBACK
+Route::post('/update-feedback/{id}','FeedbackController@update');
+
 
 //CREATE FIGURE
 Route::get('/create-figure','FigureController@create');
 Route::post('/create-figure','FigureController@store');
 //VIEW FIGURE
 Route::get('/manage-figure','FigureController@index');
+//SHOW FIGURE
+Route::get('/show-figure/{id}','FigureController@show');
 //UPDATE FIGURE
 Route::get('/update-figure/{id}','FigureController@edit');
 Route::post('/update-figure/{id}','FigureController@update');
@@ -53,3 +62,13 @@ Route::get('/update-category/{id}','CategoryController@edit');
 Route::post('/update-category/{id}','CategoryController@update');
 //DELETE CATEGORY
 Route::get('/delete-category/{id}','CategoryController@destroy');
+
+//Auth::routes();
+//Route::get('/home', 'HomeController@index')->name('home');
+
+//LOGIN
+Route::get('/login','AuthController@loginPage');
+Route::post('/login','AuthController@login');
+
+//LOGOUT
+Route::get('/logout','AuthController@logout');

@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function TransactionHeader(){
         return $this->hasMany('App\TransactionHeader');
     }
+
+    public function Cart(){
+        return $this->hasMany('App\Cart');
+    }
 }

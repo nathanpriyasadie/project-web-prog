@@ -21,6 +21,8 @@
                 <td>
                     @if($user->photo_profile!=NULL)
                     <img src ="{{asset('storage/'.$user->photo_profile)}}" style="height:100px;width:100px">
+                    @else
+                    No Picture
                     @endif
                 </td>
                 <td>{{$user->name}}</td>

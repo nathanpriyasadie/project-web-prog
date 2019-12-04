@@ -17,7 +17,8 @@ class FigureController extends Controller
      */
     public function index()
     {
-        $figures = Figure::all();
+        $searchResult = request()->search;
+        $figures = Figure::where('name','LIKE', "%$searchResult%")->paginate(6);
         return view('figure.manage',compact('figures'));
     }
 
@@ -83,9 +84,10 @@ class FigureController extends Controller
      * @param  \App\Figure  $figure
      * @return \Illuminate\Http\Response
      */
-    public function show(Figure $figure)
+    public function show($id)
     {
-        //
+        $figure = Figure::findOrFail($id);
+        return view('figure.show',compact('figure'));
     }
 
     /**

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Feedback;
-use Illuminate\Support\Facades\Auth;
+use App\Cart;
 use Illuminate\Http\Request;
-use Validator;
 
-
-class FeedbackController extends Controller
+class CartController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +14,7 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        $feedbacks = Feedback::all();
-        return view('feedback.manage',compact('feedbacks'));
+        //
     }
 
     /**
@@ -28,8 +24,7 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-
-        return view('feedback.create');
+        //
     }
 
     /**
@@ -40,26 +35,16 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
-            'message'  => 'min:10'
-        ],[
-            'message' => 'message min 10 characters'
-        ]);
-        $validator->validate();
-
-        $feedback = new Feedback();
-        $feedback->message=$request->message;
-        $feedback->user_id=Auth::id();
-        $feedback->save();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Feedback  $feedback
+     * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function show(Feedback $feedback)
+    public function show(Cart $cart)
     {
         //
     }
@@ -67,10 +52,10 @@ class FeedbackController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Feedback  $feedback
+     * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function edit(Feedback $feedback)
+    public function edit(Cart $cart)
     {
         //
     }
@@ -79,25 +64,21 @@ class FeedbackController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Feedback  $feedback
+     * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, Cart $cart)
     {
-        $feedback = Feedback::find($id);
-        $feedback->status = $request->status;
-
-        $feedback->save();
-        return redirect('/manage-feedback');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Feedback  $feedback
+     * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Feedback $feedback)
+    public function destroy(Cart $cart)
     {
         //
     }

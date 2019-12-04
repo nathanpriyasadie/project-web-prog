@@ -16,6 +16,13 @@
         <button type="submit" class="btn btn-primary">Upload</button>
 
     </form>
+    @if($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    @endif
 
     </body>
 </html>

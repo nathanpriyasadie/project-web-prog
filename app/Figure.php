@@ -18,4 +18,8 @@ class Figure extends Model
     public function TransactionDetail(){
         return $this->hasMany('App\TransactionDetail');
     }
+
+    public function Cart(){
+        return $this->hasMany('App\Cart');
+    }
 }
