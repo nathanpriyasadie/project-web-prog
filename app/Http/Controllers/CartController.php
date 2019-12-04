@@ -16,8 +16,13 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts = Cart::all();
-        return view('cart.manage',compact('carts'));
+        $user_id = Auth::id();
+        $carts = Cart::where('user_id',$user_id)->get();
+        if(count($carts)>0){
+            $a = 1;
+        }
+        else $a=0;
+        return view('cart.manage',compact('carts','a'));
     }
 
     /**

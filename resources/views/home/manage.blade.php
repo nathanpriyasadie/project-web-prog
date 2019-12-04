@@ -4,7 +4,7 @@
 
     </head>
     <body>
-        <h1>Manage Figure</h1>
+        <h1>View Figure</h1>
         <form class="form-inline" method="GET" action="/manage-figure">
             <input type="text" class="form-control" placeholder="Search..." name="search">
                 <button class="btn btn-secondary" type="submit">Go!</button>

@@ -67,7 +67,7 @@ Route::get('/delete-category/{id}','CategoryController@destroy');
 //Route::get('/home', 'HomeController@index')->name('home');
 
 //LOGIN
-Route::get('/login','AuthController@loginPage');
+Route::get('/login','AuthController@loginPage')->name('login');
 Route::post('/login','AuthController@login');
 
 //LOGOUT
@@ -77,7 +77,14 @@ Route::get('/logout','AuthController@logout');
 //HOME INDEX
 Route::get('/home','HomeController@index');
 
-//CART
+//CREATE CART
 Route::get('/create-cart/{id}/{qty}','CartController@store');
+//MANAGE CART
 Route::get('/manage-cart','CartController@index');
+//DELETE CART
 Route::get('/delete-cart/{id}','CartController@destroy');
+
+//CREATE Transaction
+Route::get('/create-transaction/{id}','TransactionHeaderController@store');
+//VIEW TRANSACTION
+Route::get('/manage-transaction','TransactionHeaderController@index');

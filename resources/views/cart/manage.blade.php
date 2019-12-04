@@ -13,6 +13,7 @@
                 <th>Price</th>
                 <th>Delete</th>
             </tr>
+            @if($a==1)
             @foreach($carts as $cart)
             <tr>
                 <td>
@@ -31,8 +32,9 @@
             </tr>
             @endforeach
         </table>
-        <form method="GET" action='/checkout/{{$cart->user->id}}'>
+        <form method="GET" action='/create-transaction/{{$cart->user->id}}'>
             <input type="submit" value="Checkout" />
         </form>
+            @endif
     </body>
 </html>

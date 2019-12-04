@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\TransactionHeader;
+use App\TransactionDetail;
 use Illuminate\Http\Request;
+use App\Cart;
+use App\Figure;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionHeaderController extends Controller
 {
@@ -14,7 +18,11 @@ class TransactionHeaderController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::id();
+        $transactionheaders = TransactionHeader::with('TransactionDetail')->where('user_id',$user_id)->paginate(1);
+        // dd($transactionheaders);
+        return view('transaction.manage',compact('transactionheaders'));
+
     }
 
     /**
@@ -33,9 +41,34 @@ class TransactionHeaderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id)
     {
-        //
+        $transactionheader = new TransactionHeader();
+        $transactionheader->user_id = Auth::id();
+        $transactionheader->save();
+
+        $carts = Cart::where('user_id',$id)->get();
+
+
+        foreach($carts as $cart){
+            $transactiondetail = new TransactionDetail();
+            $transactiondetail->transaction_id = $transactionheader->id;
+
+            $transactiondetail->figure_id = $cart->figure_id;
+            $transactiondetail->quantity = $cart->quantity;
+
+            // $figure = Figure::findOrFail($transactiondetail->figure_id);
+
+            // if($figure->stock == $transactiondetail->quantity){
+            //     $figure->delete();
+            // }else{
+            //     $figure->stock -= $transactiondetail->quantity;
+            //     $figure->save();
+            // }
+
+            $transactiondetail->save();
+            $cart->delete();
+        }
     }
 
     /**

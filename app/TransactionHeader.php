@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransactionHeader extends Model
 {
+    public $timestamps = true;
+
     protected $fillable = [
-        'transaction_date', 'user_id'
+        'user_id'
     ];
 
     public function TransactionDetail(){
-        return $this->hasMany('App\TransactionDetail');
+        return $this->hasMany('App\TransactionDetail','transaction_id');
     }
 
     public function User(){
