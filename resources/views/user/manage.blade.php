@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
+@section('content')
+<div class="container">
+    <div class="row">
+    <div class="col-md-8">
         <h1>Manage User</h1>
-        <table>
+        <form method="GET" action='/create-user'>
+            <input type="submit" value="Create User" class="btn btn-primary"/>
+        </form>
+        <table class="table table-striped">
             <tr>
                 <th>Profile Picture</th>
                 <th>Fullname</th>
@@ -15,6 +18,7 @@
                 <th>Gender</th>
                 <th>Role</th>
                 <th>Delete</th>
+                <th>Edit</th>
             </tr>
             @foreach($users as $user)
             <tr>
@@ -30,19 +34,21 @@
                 <td>{{$user->phone}}</td>
                 <td>{{$user->address}}</td>
                 <td>{{$user->gender}}</td>
-                <td>{{$user->role}}</td>
+                <td>{{$user->type}}</td>
                 <td>
                     <form method="GET" action='/delete-user/{{$user->id}}'>
-                        <input type="submit" value="Delete" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
                     </form>
                 </td>
                 <td>
                     <form method="GET" action='/update-user/{{$user->id}}'>
-                        <input type="submit" value="Edit" />
+                        <input type="submit" value="Edit" class="btn btn-warning" />
                     </form>
                 </td>
             </tr>
             @endforeach
         </table>
-    </body>
-</html>
+        </div>
+    </div>
+</div>
+@endsection

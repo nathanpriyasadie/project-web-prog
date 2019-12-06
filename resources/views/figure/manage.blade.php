@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
         <h1>Manage Figure</h1>
-        <form class="form-inline" method="GET" action="/manage-figure">
-            <input type="text" class="form-control" placeholder="Search..." name="search">
-                <button class="btn btn-secondary" type="submit">Go!</button>
+        <form method="GET" action='/create-figure'>
+            <input type="submit" value="Create figure" class="btn btn-primary"/>
         </form>
-        <table>
+        <table class="table table-striped">
             <tr>
                 <th>Figure Picture</th>
                 <th>Figure Name</th>
@@ -17,8 +16,8 @@
                 <th>Description</th>
                 <th>Quantity</th>
                 <th>Price</th>
-                <th>Edit</th>
                 <th>Delete</th>
+                <th>Edit</th>
             </tr>
             @foreach($figures as $figure)
             <tr>
@@ -34,17 +33,19 @@
                 <td>{{$figure->price}}</td>
                 <td>
                     <form method="GET" action='/delete-figure/{{$figure->id}}'>
-                        <input type="submit" value="Delete" />
+                        <input type="submit" value="Delete" class="btn btn-danger"/>
                     </form>
                 </td>
                 <td>
                     <form method="GET" action='/update-figure/{{$figure->id}}'>
-                        <input type="submit" value="Edit" />
+                        <input type="submit" value="Edit" class="btn btn-warning"/>
                     </form>
                 </td>
             </tr>
             @endforeach
         </table>
         {{$figures->links()}}
-    </body>
-</html>
+    </div>
+</div>
+</div>
+@endsection

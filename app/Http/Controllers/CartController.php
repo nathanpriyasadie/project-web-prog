@@ -19,10 +19,10 @@ class CartController extends Controller
         $user_id = Auth::id();
         $carts = Cart::where('user_id',$user_id)->get();
         if(count($carts)>0){
-            $a = 1;
+            $isCartExist = 1;
         }
-        else $a=0;
-        return view('cart.manage',compact('carts','a'));
+        else $isCartExist=0;
+        return view('cart.manage',compact('carts','isCartExist'));
     }
 
     /**

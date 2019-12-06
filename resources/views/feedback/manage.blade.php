@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
         <h1>Manage Feedback</h1>
-        <table>
+        <table class="table table-striped">
             <tr>
                 <th>Feedback Description</th>
                 <th>Status</th>
@@ -19,17 +19,19 @@
                 <td>
                     <form method="POST" action='/update-feedback/{{$feedback->id}}'>
                         @csrf
-                        <input type="submit" value="approved" name="status" />
+                        <input type="submit" class="btn btn-success" value="approved" name="status" />
                     </form>
                 </td>
                 <td>
                     <form method="POST" action='/update-feedback/{{$feedback->id}}'>
                         @csrf
-                        <input type="submit" value="rejected" name="status" />
+                        <input type="submit" class="btn btn-danger" value="rejected" name="status" />
                     </form>
                 </td>
             </tr>
             @endforeach
         </table>
-    </body>
-</html>
+        </div>
+    </div>
+</div>
+@endsection

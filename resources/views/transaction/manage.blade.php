@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
+@section('content')
+@php
+    $total = 0;
+@endphp
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
         <h1>View Transaction</h1>
         @foreach($transactionheaders as $transactionheader)
-            {{$transactionheader->created_at}}
-            {{$transactionheader->user->name}}
-            {{$transactionheader->id}}
-        <table>
+            <b>Transaction Time:</b> {{$transactionheader->created_at}}<br>
+            <b>Buyer Name:</b> {{$transactionheader->user->name}}<br>
+            <b>Transaction Number&nbsp;:</b> {{$transactionheader->id}}<br>
+        <table class="table table-striped">
             <tr>
                 <th>Figure Picture</th>
                 <th>Figure Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
-                <th>total</th>
             </tr>
             @foreach($transactionheader->TransactionDetail as $transactiondetail)
             <tr>
@@ -26,11 +28,25 @@
                 </td>
                 <td>{{$transactiondetail->figure->name}}</td>
                 <td>{{$transactiondetail->quantity}}</td>
-                <td>{{$transactiondetail->figure->price}}</td>
+                <td>Rp.{{$transactiondetail->figure->price}}</td>
             </tr>
+            @php
+                $total += ($transactiondetail->figure->price*$transactiondetail->quantity);
+            @endphp
             @endforeach
+            <tr>
+                <td colspan="3">
+                    Total
+                </td>
+                <td>
+                    Rp.{{$total}}
+                </td>
+            </tr>
         </table>
+
         @endforeach
         {{$transactionheaders->links()}}
-    </body>
-</html>
+        </div>
+    </div>
+</div>
+@endsection

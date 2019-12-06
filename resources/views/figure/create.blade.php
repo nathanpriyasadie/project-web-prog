@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
-        <h1>Create Figure</h1>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+            <div class="card-header">Create Figure</div>
+        <div class="card-body">
     <form method="POST" action="/create-figure" enctype="multipart/form-data">
         @csrf
         <!-- Form Inputs -->
@@ -42,7 +44,7 @@
             <input type="file" class="form-control-file" id="photo_profile" name="photo_profile">
         </div>
 
-        <button type="submit" class="btn btn-primary">Upload</button>
+        <button type="submit" class="btn btn-primary">Create</button>
 
     </form>
     @if($errors->any())
@@ -52,5 +54,9 @@
             @endforeach
         </ul>
     @endif
-    </body>
-</html>
+    </div>
+    </div>
+        </div>
+    </div>
+</div>
+@endsection

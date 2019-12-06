@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
         <h1>Create Category</h1>
     <form method="POST" action="/create-category" enctype="multipart/form-data">
         @csrf
@@ -23,5 +23,4 @@
             @endforeach
         </ul>
     @endif
-    </body>
-</html>
+@endsection

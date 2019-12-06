@@ -1,44 +1,40 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+        <h1>Mimi Figure Shop</h1>
 
-    </head>
-    <body>
-        <h1>View Figure</h1>
-        <form class="form-inline" method="GET" action="/manage-figure">
+        <form class="form-inline" method="GET" action="/home">
             <input type="text" class="form-control" placeholder="Search..." name="search">
                 <button class="btn btn-secondary" type="submit">Go!</button>
         </form>
-        <table>
-            <tr>
-                <th>Figure Picture</th>
-                <th>Figure Name</th>
-                <th>Figure Category</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Add to cart</th>
-            </tr>
+            <div style="display:flex; flex-wrap:wrap">
             @foreach($figures as $figure)
-            <tr>
-                <td>
-                    @if($figure->photo_profile!=NULL)
-                    <img src ="{{asset('storage/'.$figure->photo_profile)}}" style="height:100px;width:100px">
+            <div class="card" style="width: 240px;">
+                <img src="{{asset('storage/'.$figure->photo_profile)}}" class="card-img-top" style="height: 10rem" alt="...">
+                <div class="card-body">
+                    <a href="/show-figure/{{$figure->id}}}">
+                        <h5 class="card-title">
+                            {{$figure->name}}
+                        </h5>
+                    </a>
+                    <h6 class="card-subtitle mb-2 text-muted">Rp.{{$figure->price}}</h6>
+                    <p class="card-text">{{$figure->description}}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">Qty:{{$figure->stock}}</h6>
+                    <p class="card-text"><small class="text-muted">{{$figure->category->name}}</small></p>
+                    @if(Auth::check())
+                        @if(Auth::user()->isUser())
+                            <a href="/create-cart/{{$figure->id}}/{{$figure->stock}}" class="btn btn-primary">Add to Cart</a>
+                        @endif
                     @endif
-                </td>
-                <td>{{$figure->name}}</td>
-                <td>{{$figure->category->name}}</td>
-                <td>{{$figure->description}}</td>
-                <td>{{$figure->stock}}</td>
-                <td>{{$figure->price}}</td>
-                <td>
-                    <form method="GET" action='/create-cart/{{$figure->id}}/{{$figure->stock}}'>
-                        <input type="submit" value="add to cart" />
-                    </form>
-                </td>
-            </tr>
+                </div>
+            </div>
             @endforeach
-        </table>
+            </div>
         {{$figures->links()}}
-    </body>
-</html>
+        </div>
+    </div>
+</div>
+@endsection
+

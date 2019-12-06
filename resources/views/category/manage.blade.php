@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
         <h1>Manage Category</h1>
-        <table>
+        <form method="GET" action='/create-category'>
+            <input type="submit" value="Create Category" class="btn btn-primary"/>
+        </form>
+        <table class="table table-striped">
             <tr>
                 <th>Category Name</th>
                 <th>Delete</th>
@@ -16,16 +19,19 @@
                 <td>{{$category->name}}</td>
                 <td>
                     <form method="GET" action='/delete-category/{{$category->id}}'>
-                        <input type="submit" value="Delete" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
                     </form>
                 </td>
                 <td>
                     <form method="GET" action='/update-category/{{$category->id}}'>
-                        <input type="submit" value="Edit" />
+                        <input type="submit" value="Edit" class="btn btn-warning" />
                     </form>
                 </td>
             </tr>
             @endforeach
         </table>
-    </body>
-</html>
+        </div>
+</div>
+</div>
+@endsection
+

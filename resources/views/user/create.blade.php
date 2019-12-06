@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
-        <h1>Create User</h1>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+            <div class="card-header">Create User</div>
+            <div class="card-body">
     <form method="POST" action="/create-user" enctype="multipart/form-data">
         @csrf
         <!-- Form Inputs -->
         <div class="form-group">
-            <label for="name">FullName</label>
+            <label for="name">Full Name</label>
             <input type="text" class="form-control" name="name" placeholder="Full Name">
         </div>
 
@@ -47,12 +49,17 @@
         </div>
 
         <div class="form-group">
+            <label for="type">Role</label>
+            <select name="type">
+                <option value="admin">admin</option>
+                <option value="user">user</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="photo_profile">Post Image</label>
             <input type="file" class="form-control-file" id="photo_profile" name="photo_profile">
         </div>
-
-        <input type="checkbox" name="agree" value="agree">I Agree<br>
-
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
         @if($errors->any())
@@ -62,5 +69,9 @@
                 @endforeach
             </ul>
         @endif
-    </body>
-</html>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+@endsection

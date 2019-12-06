@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
+@section('content')
+@php
+    $total = 0;
+@endphp
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
         <h1>Manage Cart</h1>
-        <table>
+        <table class="table table-striped">
             <tr>
                 <th>Figure Picture</th>
                 <th>Figure Name</th>
@@ -13,7 +16,7 @@
                 <th>Price</th>
                 <th>Delete</th>
             </tr>
-            @if($a==1)
+            @if($isCartExist==1)
             @foreach($carts as $cart)
             <tr>
                 <td>
@@ -23,18 +26,38 @@
                 </td>
                 <td>{{$cart->figure->name}}</td>
                 <td>{{$cart->quantity}}</td>
-                <td>{{$cart->figure->price}}</td>
+                <td>Rp.{{$cart->figure->price}}</td>
                 <td>
                     <form method="GET" action='/delete-cart/{{$cart->id}}'>
-                        <input type="submit" value="Delete" />
+                        <input type="submit" value="Delete" class="btn btn-danger"  />
                     </form>
                 </td>
             </tr>
+            @php
+                $total += ($cart->figure->price*$cart->quantity);
+            @endphp
             @endforeach
+            <tr>
+                <td colspan="3">
+                    Total
+                </td>
+                <td>
+                    Rp.{{$total}}
+                </td>
+            </tr>
         </table>
         <form method="GET" action='/create-transaction/{{$cart->user->id}}'>
-            <input type="submit" value="Checkout" />
+            <input type="submit" value="Checkout" class="btn btn-primary"  />
         </form>
+            @else
+                <tr>
+                    <td colspan="5">
+                        No Item
+                    </td>
+                </tr>
             @endif
-    </body>
-</html>
+
+            </div>
+    </div>
+</div>
+@endsection

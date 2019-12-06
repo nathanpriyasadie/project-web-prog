@@ -20,7 +20,13 @@ class TransactionHeaderController extends Controller
     {
         $user_id = Auth::id();
         $transactionheaders = TransactionHeader::with('TransactionDetail')->where('user_id',$user_id)->paginate(1);
-        // dd($transactionheaders);
+        return view('transaction.manage',compact('transactionheaders'));
+
+    }
+
+    public function adminindex()
+    {
+        $transactionheaders = TransactionHeader::with('TransactionDetail')->paginate(1);
         return view('transaction.manage',compact('transactionheaders'));
 
     }
@@ -49,7 +55,6 @@ class TransactionHeaderController extends Controller
 
         $carts = Cart::where('user_id',$id)->get();
 
-
         foreach($carts as $cart){
             $transactiondetail = new TransactionDetail();
             $transactiondetail->transaction_id = $transactionheader->id;
@@ -57,18 +62,15 @@ class TransactionHeaderController extends Controller
             $transactiondetail->figure_id = $cart->figure_id;
             $transactiondetail->quantity = $cart->quantity;
 
-            // $figure = Figure::findOrFail($transactiondetail->figure_id);
+            $figure = Figure::findOrFail($transactiondetail->figure_id);
 
-            // if($figure->stock == $transactiondetail->quantity){
-            //     $figure->delete();
-            // }else{
-            //     $figure->stock -= $transactiondetail->quantity;
-            //     $figure->save();
-            // }
+            $figure->stock -= $transactiondetail->quantity;
+            $figure->save();
 
             $transactiondetail->save();
             $cart->delete();
         }
+        return redirect('/manage-transaction');
     }
 
     /**

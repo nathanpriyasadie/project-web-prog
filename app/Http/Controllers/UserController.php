@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
@@ -68,7 +69,6 @@ class UserController extends Controller
         $filename = 'user-'.$request->name.'.'.$file->getClientOriginalExtension();
         $path=$file->storeAs('public',$filename);
 
-
         $user = new User();
         $user->name = $request['name'];
         $user->email = $request['email'];
@@ -77,6 +77,10 @@ class UserController extends Controller
         $user->address = $request['address'];
         $user->gender = $request['gender'];
         $user->photo_profile = $filename;
+
+        if($request->type){
+            $user->type = $request->type;
+        }
 
         $user->save();
         return redirect('/create-user');
@@ -116,6 +120,62 @@ class UserController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'name'  => 'min:5',
+            'email' => 'email',
+            'phone' => 'numeric|min:11',
+            'gender'  => 'in:male,female',
+            'address' => 'min:10',
+            'photo_profile' => 'mimes:jpeg,png,jpg'
+        ],[
+            'name.min' => 'Fullname min 5 characters',
+            'email.email' => 'invalid email format',
+            'phone.numeric' => 'phone must be numeric',
+            'phone.min' => 'phone min 11 numbers',
+            'gender.in' => 'invalid gender format',
+            'address.min' => 'address min 10 characters',
+            'photo_profile.mimes' => 'invalid photo format'
+        ]);
+        $validator->validate();
+
+        $file = $request->file('photo_profile');
+        $filename = 'food-'.$request->name.'.'.$file->getClientOriginalExtension();
+        $path=$file->storeAs('public',$filename);
+
+        $user = User::find($id);
+        $oldpath = 'public/'.$user['photo_profile'];
+        Storage::delete($oldpath);
+
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->phone = $request['phone'];
+        $user->address = $request['address'];
+        $user->gender = $request['gender'];
+        $user->photo_profile = $filename;
+
+        if($request->type){
+            $user->type = $request->type;
+        }
+
+        $user->save();
+        return redirect('/manage-user');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect('/manage-user');
+    }
+
+    public function profile(Request $request,$id){
+        $validator = Validator::make(request()->all(), [
+            'name'  => 'min:5',
             'email' => 'email|unique:users,email',
             'phone' => 'numeric|min:11',
             'gender'  => 'in:male,female',
@@ -149,20 +209,12 @@ class UserController extends Controller
         $user->photo_profile = $filename;
 
         $user->save();
-        return redirect('/manage-user');
+        return redirect('/profile');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
+    public function profilepage(){
+        $id = Auth::id();
         $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect('/manage-user');
+        return view('user.update',compact('user'));
     }
 }
