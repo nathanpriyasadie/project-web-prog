@@ -47,8 +47,8 @@ class UserController extends Controller
             'phone' => 'numeric|min:11',
             'gender'  => 'in:male,female',
             'address' => 'min:10',
-            'photo_profile' => 'mimes:jpeg,png,jpg',
-            //'agree' => 'accepted'
+            'photo_profile' => 'required|mimes:jpeg,png,jpg',
+            'agree' => 'required'
         ],[
             'name.min' => 'Fullname min 5 characters',
             'email.email' => 'invalid email format',
@@ -60,10 +60,13 @@ class UserController extends Controller
             'phone.min' => 'phone min 11 numbers',
             'gender.in' => 'invalid gender format',
             'address.min' => 'address min 10 characters',
+            'photo_profile.required' => 'please upload your profile picture',
             'photo_profile.mimes' => 'invalid photo format',
-            //'agree.accepted' => 'must agree'
+            'agree.required' => 'must agree'
         ]);
         $validator->validate();
+
+        dd($request);
 
         $file = $request->file('photo_profile');
         $filename = 'user-'.$request->name.'.'.$file->getClientOriginalExtension();
@@ -124,7 +127,7 @@ class UserController extends Controller
             'phone' => 'numeric|min:11',
             'gender'  => 'in:male,female',
             'address' => 'min:10',
-            'photo_profile' => 'mimes:jpeg,png,jpg'
+            'photo_profile' => 'required|mimes:jpeg,png,jpg'
         ],[
             'name.min' => 'Fullname min 5 characters',
             'email.email' => 'invalid email format',
@@ -132,7 +135,8 @@ class UserController extends Controller
             'phone.min' => 'phone min 11 numbers',
             'gender.in' => 'invalid gender format',
             'address.min' => 'address min 10 characters',
-            'photo_profile.mimes' => 'invalid photo format'
+            'photo_profile.mimes' => 'invalid photo format',
+            'photo_profile.required' => 'please upload your profile picture'
         ]);
         $validator->validate();
 
@@ -173,7 +177,7 @@ class UserController extends Controller
         return redirect('/manage-user');
     }
 
-    public function profile(Request $request,$id){
+    public function profile(Request $request){
         $validator = Validator::make(request()->all(), [
             'name'  => 'min:5',
             'email' => 'email|unique:users,email',

@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Signup</div>
                 <div class="card-body">
-                    <form method="POST" action="/create-user" enctype="multipart/form-data">
+                    <form method="POST" action="/register" enctype="multipart/form-data">
                         @csrf
                         <!-- Form Inputs -->
                         <div class="form-group">
@@ -47,20 +47,21 @@
                             <input type="file" class="form-control-file" id="photo_profile" name="photo_profile">
                         </div>
 
-                        <input type="checkbox" name="agree" value="agree">I Agree<br>
+                        <input type="checkbox" name="agree" value="agree">I Agree to Terms and Condition<br>
 
                         <button type="submit" class="btn btn-primary">Signup</button>
                     </form>
+                    @if($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                        @foreach ($errors->all() as $error)
+                            {{$error}} <br>
+                        @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
-@if($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-@endif
+
 @endsection

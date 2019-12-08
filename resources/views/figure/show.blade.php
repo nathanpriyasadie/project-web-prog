@@ -1,31 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-
-    </head>
-    <body>
-        <h1>Manage Figure</h1>
-        <table>
-            <tr>
-                <th>Figure Picture</th>
-                <th>Figure Name</th>
-                <th>Figure Category</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Price</th>
-            </tr>
-            <tr>
-                <td>
+@extends('layouts.nav')
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="row">
+                <h1>{{$figure->name}}</h1>
+            </div>
+            <div class="row">
+                <div class="col">
                     @if($figure->photo_profile!=NULL)
-                    <img src ="{{asset('storage/'.$figure->photo_profile)}}" style="height:100px;width:100px">
+                        <img src ="{{asset('storage/'.$figure->photo_profile)}}" style="height:500px;width:300px">
                     @endif
-                </td>
-                <td>{{$figure->name}}</td>
-                <td>{{$figure->category->name}}</td>
-                <td>{{$figure->description}}</td>
-                <td>{{$figure->stock}}</td>
-                <td>{{$figure->price}}</td>
-            </tr>
-        </table>
-    </body>
-</html>
+                </div>
+                <div class="col">
+                    <b>Category: </b>{{$figure->category->name}}<br>
+                    <b>Description: </b>{{$figure->description}}<br>
+                    <b>Stock: </b>{{$figure->stock}}<br>
+                    <b>Price: </b>{{$figure->price}}<br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

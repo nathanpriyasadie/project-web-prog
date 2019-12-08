@@ -56,16 +56,16 @@
                 <button type="submit" class="btn btn-primary">Update</button>
 
             </form>
+            @if($errors->any())
+                <div class="alert alert-danger" role="alert">
+                @foreach ($errors->all() as $error)
+                    {{$error}} <br>
+                @endforeach
+                </div>
+            @endif
             </div>
         </div>
         </div>
     </div>
 </div>
-        @if($errors->any())
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-        @endif
 @endsection

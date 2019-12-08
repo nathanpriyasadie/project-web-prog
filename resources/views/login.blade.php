@@ -15,6 +15,13 @@
                         <div class="form-group">
                             <input type="password" name = "password" class="form-control" placeholder="Password" value="{{Cookie::get('user_password')}}">
                         </div>
+                        @if($errors->any())
+                            <div class="alert alert-danger" role="alert">
+                                @foreach ($errors->all() as $error)
+                                    {{$error}} <br>
+                                @endforeach
+                            </div>
+                        @endif
                         <input type="checkbox" name="remember">Remember me<br>
                         <input type="submit" value = "Login" class="btn btn-primary">
                     </form>

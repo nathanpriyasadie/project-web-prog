@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Cookie;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -20,11 +22,14 @@ class AuthController extends Controller
             if($request->remember == true)
             {
                 Cookie::queue(Cookie::make('user_email', $email, 30));
-                Cookie::queue(Cookie::make('user_password', $email, 30));
+                Cookie::queue(Cookie::make('user_password', $password, 30));
             }
             return redirect('/home');
         }
-        return redirect('/login');
+        $errors = [
+            'email' => 'Wrong Combination',
+        ];
+        return redirect('/login')->withErrors($errors);
     }
 
     public function loginPage(){
@@ -37,10 +42,10 @@ class AuthController extends Controller
             'email' => 'email|unique:users,email',
             'password' => 'min:5|alpha_num|confirmed',
             'phone' => 'numeric|min:11',
-            'gender'  => 'in:male,female',
-            'address' => 'min:10',
-            'photo_profile' => 'mimes:jpeg,png,jpg',
-            //'agree' => 'accepted'
+            'gender'  => 'required|in:male,female',
+            'address' => 'required|min:10',
+            'photo_profile' => 'required|mimes:jpeg,png,jpg',
+            'agree' => 'required'
         ],[
             'name.min' => 'Fullname min 5 characters',
             'email.email' => 'invalid email format',
@@ -52,10 +57,12 @@ class AuthController extends Controller
             'phone.min' => 'phone min 11 numbers',
             'gender.in' => 'invalid gender format',
             'address.min' => 'address min 10 characters',
+            'photo_profile.required' => 'please upload your profile picture',
             'photo_profile.mimes' => 'invalid photo format',
-            //'agree.accepted' => 'must agree'
+            'agree.required' => 'must agree'
         ]);
         $validator->validate();
+
 
         $file = $request->file('photo_profile');
         $filename = 'user-'.$request->name.'.'.$file->getClientOriginalExtension();

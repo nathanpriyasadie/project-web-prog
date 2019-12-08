@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-//Route::group(['middleware'=>'guestonly'], function() {
+Route::group(['middleware'=>'guestonly'], function() {
     //LOGIN
     Route::get('/login','AuthController@loginPage')->name('login');
     Route::post('/login','AuthController@login');
@@ -24,7 +24,7 @@ Route::get('/', function () {
     //REGISTER
     Route::get('/register','AuthController@registerPage');
     Route::post('/register','AuthController@register');
-//});
+});
 
 
 //LOGOUT

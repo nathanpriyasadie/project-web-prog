@@ -47,7 +47,7 @@ class FigureController extends Controller
             'price' => 'filled|min:100000|numeric',
             'description' => 'min:10',
             'stock'  => 'filled|min:1',
-            'photo_profile' => 'mimes:jpeg,png,jpg'
+            'photo_profile' => 'required|mimes:jpeg,png,jpg'
         ],[
             'name.min' => 'name min 5 characters',
             'category_id.filled' => 'category need to be filled',
@@ -57,7 +57,8 @@ class FigureController extends Controller
             'description.min' => 'description min 10 characters',
             'stock.filled' => 'stock need to be filled',
             'stock.min' => 'stock min 1',
-            'photo_profile.mimes' => 'invalid photo format'
+            'photo_profile.mimes' => 'invalid photo format',
+            'photo_profile.required' => 'please upload figure picture'
         ]);
         $validator->validate();
 
@@ -118,7 +119,7 @@ class FigureController extends Controller
             'price' => 'filled|min:100000|numeric',
             'description' => 'min:10',
             'stock'  => 'filled|min:1',
-            'photo_profile' => 'mimes:jpeg,png,jpg'
+            'photo_profile' => 'required|mimes:jpeg,png,jpg'
         ],[
             'name.min' => 'name min 5 characters',
             'category_id.filled' => 'category need to be filled',
@@ -128,7 +129,8 @@ class FigureController extends Controller
             'description.min' => 'description min 10 characters',
             'stock.filled' => 'stock need to be filled',
             'stock.min' => 'stock min 1',
-            'photo_profile.mimes' => 'invalid photo format'
+            'photo_profile.mimes' => 'invalid photo format',
+            'photo_profile.required' => 'please upload figure picture'
         ]);
         $validator->validate();
 
