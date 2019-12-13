@@ -33,7 +33,8 @@
                     <ul class="navbar-nav mr-auto">
                         @if(Auth::check())
                             <span class="navbar-text">
-                                {{Auth::user()->name}}
+                                Welcome
+                                {{Auth::user()->name}} !
                                 {{Carbon\Carbon::now()}}
                             </span>
                         @endif

@@ -51,6 +51,8 @@ class FeedbackController extends Controller
         $feedback->message=$request->message;
         $feedback->user_id=Auth::id();
         $feedback->save();
+
+        return redirect('/create-feedback');
     }
 
     /**

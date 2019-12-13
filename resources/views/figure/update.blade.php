@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
         <h1>Update Figure</h1>
     <form method="POST" action="/update-figure/{{$figure->id}}" enctype="multipart/form-data">
         @csrf
@@ -46,11 +46,10 @@
 
     </form>
     @if($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
+        <div class="alert alert-danger" role="alert">
+        @foreach ($errors->all() as $error)
+            {{$error}} <br>
+        @endforeach
+        </div>
     @endif
-    </body>
-</html>
+@endsection

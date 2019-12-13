@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layouts.nav')
 
-    </head>
-    <body>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
     <h1>Edit Category</h1>
     <form method="POST" action="/update-category/{{$category->id}}" enctype="multipart/form-data">
         @csrf
@@ -16,14 +16,11 @@
         <button type="submit" class="btn btn-primary">Upload</button>
 
     </form>
-
     @if($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
+        <div class="alert alert-danger" role="alert">
+        @foreach ($errors->all() as $error)
+            {{$error}} <br>
+        @endforeach
+        </div>
     @endif
-
-    </body>
-</html>
+@endsection

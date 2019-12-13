@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Cookie;
 use Validator;
+use Hash;
 
 class AuthController extends Controller
 {

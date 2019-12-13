@@ -31,9 +31,12 @@ Route::group(['middleware'=>'guestonly'], function() {
 Route::get('/logout','AuthController@logout');
 
 //CREATE USER
-Route::get('/create-user','UserController@create');
-Route::post('/create-user','UserController@store');
 Route::group(['middleware'=>'isadmin'], function() {
+    //CREATE USER
+    Route::get('/create-user','UserController@create');
+    Route::post('/create-user','UserController@store');
+    //CREATE WITHOUT AGREE
+    Route::post('/create-user-admin','UserController@adminstore');
     //VIEW USER
     Route::get('/manage-user','UserController@index');
     //UPDATE USER

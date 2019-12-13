@@ -139,8 +139,7 @@ class FigureController extends Controller
         $path=$file->storeAs('public',$filename);
 
         $figure = Figure::find($id);
-        $oldpath = 'public/'.$figure['photo_profile'];
-        Storage::delete($oldpath);
+
 
         $figure->name = $request['name'];
         $figure->category_id = $request['category_id'];

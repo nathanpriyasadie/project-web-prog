@@ -7,7 +7,8 @@
             <div class="card">
             <div class="card-header">Create User</div>
             <div class="card-body">
-    <form method="POST" action="/create-user" enctype="multipart/form-data">
+
+    <form method="POST" action="/create-user-admin" enctype="multipart/form-data">
         @csrf
         <!-- Form Inputs -->
         <div class="form-group">
@@ -62,13 +63,14 @@
         </div>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
-        @if($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger" role="alert">
+        @foreach ($errors->all() as $error)
+            {{$error}} <br>
+        @endforeach
+        </div>
+    @endif
         </div>
         </div>
         </div>
